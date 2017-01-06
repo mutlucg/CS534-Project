@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Main {
 	static Scanner scanner = new Scanner(System.in);
 	static int people;
-	static  int n;
+	static int n;
 	static int rate;
 	static int day;
 	

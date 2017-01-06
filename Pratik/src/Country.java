@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> fb2651ab46d9f9d41b7ed36f1c1aa4f8439ffbca
 
 public class Country {
 	Country westN;
