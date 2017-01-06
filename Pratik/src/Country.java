@@ -1,4 +1,4 @@
-package example;
+
 
 public class Country {
 	Country westN;
