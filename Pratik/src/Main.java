@@ -9,6 +9,7 @@ public class Main {
 	static int day;
 	
 	public static void main(String[] args) {
+		
 		System.out.println("people:");
 		people=scanner.nextInt();
 		System.out.println("n:");
@@ -20,14 +21,7 @@ public class Main {
 
 
 		World world=new World(people,n,rate);
-
-		Person person[]=new Person[people];
-		for (int i=0;i<people;i++){
-			person[i]=new Person(world);
-		}
-
-		world.createWorld (person);
-
+		world.createWorld();
 
 		int a=1;
 		while(!(a==day)){

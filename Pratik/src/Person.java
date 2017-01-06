@@ -13,11 +13,10 @@ public class Person {
 	boolean isImmune;
 	boolean looksInfectious;
 	int chosenDay;
-	World world;
 
-	public Person(World world){
+	public Person(){
 
-		this.world=world;
+		
 	}
 
 	public void getInfected() {

@@ -5,17 +5,20 @@ public class Country {
 	Country northN;
 	Country southN;
 	
+	int xPos, yPos;
+	
 	int population;
 	int healthyPopulation;
 	int sickPopulation;
 	int deadPopulation;
 	int infectedPopulation;
+	
 
-	public Country(int p) {
-		population = p;
+	public Country() {
+		population = 0;
 
 	}
-
+	
 	boolean isInfected(){
 		if(infectedPopulation>0 ||deadPopulation>0 || sickPopulation>0)
 			return true;
