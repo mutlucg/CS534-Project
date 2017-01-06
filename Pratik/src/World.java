@@ -25,7 +25,7 @@ public class World {
 	public void createWorld() {
 		createPeople();
 		createCountries();
-		setCountryPopulations(population, numberOfCountries);
+		setCountryPopulations();
 		setNeighbours();
 
 	}
@@ -45,30 +45,32 @@ public class World {
 		}
 	}
 
-	public void setCountryPopulations(int pop, int numOfCountries) {
+	public void setCountryPopulations() {
 		Random r = new Random();
 		int countryPop = 0;
-		while (pop > 0) {
+		int tempp = population;
+		int tempn = numberOfCountries;
+		while (tempPop > 0) {
 			for (int i = 0; i < countries.length; i++) {
 				for (int j = 0; j < countries.length; j++) {
-					if (pop / numOfCountries <= 0) {
-						countries[i][j].population += pop;
+					if (tempp / tempn <= 0) {
+						countries[i][j].population += tempPop;
 						break;
 					}
-					countryPop = r.nextInt(pop / numOfCountries) + 1;
+					countryPop = r.nextInt(tempp / tempn) + 1;
 					countries[i][j].population += countryPop;
-					pop -= countryPop;
-					numOfCountries--;
+					tempp -= countryPop;
+					tempn--;
 				}
 			}
-			numOfCountries = numberOfCountries;
+			tempn = numberOfCountries;
 		}
 	}
 
 	private void setNeighbours() {
-		setCornersNeighbors();
-		setEdgeNeighbors();
-		setMiddlesNeighbors();
+		setCornersNeighbours();
+		setEdgeNeighbours();
+		setMiddlesNeighbours();
 	}
 
 	public void setCornersNeighbours() {
