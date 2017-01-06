@@ -5,7 +5,7 @@ import java.util.Random;
 public class Person {
 
 
-	Country position;
+	Country location;
 	int infectionDay;
 	boolean isInfected;
 	boolean isSick;
@@ -13,12 +13,19 @@ public class Person {
 	boolean isImmune;
 	boolean looksInfectious;
 	int chosenDay;
+	int currentDay;
 
 	public Person(){
 
 		
 	}
 
+	public void setLocation(Country country) {
+		location=country;
+		
+	}
+	
+/*
 	public void getInfected() {
 
 		if (world.getCurrentDay()==chosenDay){
@@ -129,4 +136,6 @@ public class Person {
 		position=country;
 
 	}
+	*/
+	
 }

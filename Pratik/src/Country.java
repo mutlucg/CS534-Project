@@ -1,25 +1,22 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> fb2651ab46d9f9d41b7ed36f1c1aa4f8439ffbca
+import java.util.ArrayList;
 
 public class Country {
+	
 	Country westN;
 	Country eastN;
 	Country northN;
 	Country southN;
-	
-	int xPos, yPos;
 	
 	int population;
 	int healthyPopulation;
 	int sickPopulation;
 	int deadPopulation;
 	int infectedPopulation;
+	ArrayList <Person> person=new ArrayList<Person>();
+    
 	
 
 	public Country() {
-		population = 0;
 
 	}
 	

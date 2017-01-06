@@ -7,10 +7,19 @@ public class Main {
 	static int n;
 	static int rate;
 	static int day;
-	
+
 	public static void main(String[] args) {
 		
-		System.out.println("people:");
+		World world =new World(100,3,0);
+		
+		world.createWorld();
+		
+		for(int i=0;i<world.countries.length;i++){
+			for (int j=0;j<world.countries.length;j++){
+				System.out.println(world.countries[i][j].population);
+			}
+
+		/*	System.out.println("people:");
 		people=scanner.nextInt();
 		System.out.println("n:");
 		n=scanner.nextInt();
@@ -19,11 +28,14 @@ public class Main {
 		System.out.println("Day");
 		day=scanner.nextInt();
 
+		 
 
 		World world=new World(people,n,rate);
 		world.createWorld();
 
-		int a=1;
+		
+		}
+			int a=1;
 		while(!(a==day)){
 			for (int i=0;i<people;i++){
 				person[i].survive();
@@ -52,12 +64,12 @@ public class Main {
 
 
 			}
-
-		}
-
-
+		 */
+	}
 	}
 
-
-
 }
+
+
+
+

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-public class World {
+public class World implements Visitable {
 	public int days = 1;
 	public Country[][] countries;
 	int numberOfCountries;
@@ -26,7 +26,21 @@ public class World {
 		createPeople();
 		createCountries();
 		setCountryPopulations(population, numberOfCountries);
+		setCitizens();
 		setNeighbours();
+
+	}
+
+	private void setCitizens() {
+		for(int i=0;i<countries.length;i++){
+			for(int j=0;j<countries.length;j++){
+				for(int k=0;k<countries[i][j].population;k++){
+					Person p = new Person();
+					countries[i][j].person.add(p);
+					p.setLocation(countries[i][j]);
+				}
+			}
+		}
 
 	}
 
@@ -45,30 +59,39 @@ public class World {
 		}
 	}
 
-	public void setCountryPopulations(int pop, int numOfCountries) {
+	public void setCountryPopulations(int pop, int num) {
 		Random r = new Random();
-		int countryPop = 0;
-		while (pop > 0) {
-			for (int i = 0; i < countries.length; i++) {
-				for (int j = 0; j < countries.length; j++) {
-					if (pop / numOfCountries <= 0) {
-						countries[i][j].population += pop;
+		int rand = 0;
+		int total = 0;
+		while(pop > 0){
+			if(total == population) break;
+			for(int i=0;i<countries.length;i++){
+				if(total == population) break;
+				for(int j=0;j<countries.length;j++){
+					if(pop / num <= 0){
+						countries[i][j].population += pop; 
+						total += pop;
+						num--;
 						break;
+					}else{
+						rand = r.nextInt(pop / num)+1;
+						countries[i][j].population += rand;
+						pop -= rand;
+						num--;
+						total += rand;
 					}
-					countryPop = r.nextInt(pop / numOfCountries) + 1;
-					countries[i][j].population += countryPop;
-					pop -= countryPop;
-					numOfCountries--;
+					if(num == 0){
+						num = numberOfCountries;
+					}
 				}
 			}
-			numOfCountries = numberOfCountries;
 		}
 	}
 
 	private void setNeighbours() {
-		setCornersNeighbors();
-		setEdgeNeighbors();
-		setMiddlesNeighbors();
+		setCornersNeighbours();
+		setEdgeNeighbours();
+		setMiddlesNeighbours();
 	}
 
 	public void setCornersNeighbours() {
@@ -137,13 +160,20 @@ public class World {
 	public void setMiddlesNeighbours() {
 		for (int i = 0; i < countries.length; i++) {
 			for (int j = 0; j < countries.length; j++) {
-				if (j != 0 && j != countries.length - 1 && i != 0 && i != countries.length - 1)
+				if (j != 0 && j != countries.length - 1 && i != 0 && i != countries.length - 1){
 					countries[i][j].southN = countries[i + 1][j];
-				countries[i][j].northN = countries[i - 1][j];
-				countries[i][j].westN = countries[i][j - 1];
-				countries[i][j].eastN = countries[i][j + 1];
+					countries[i][j].northN = countries[i - 1][j]; 
+					countries[i][j].westN = countries[i][j - 1];
+					countries[i][j].eastN = countries[i][j + 1];
+				}
 			}
 		}
+	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+
 	}
 
 }
