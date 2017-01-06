@@ -1,4 +1,3 @@
-package example;
 
 import java.util.ArrayList;
 import java.util.Random;
