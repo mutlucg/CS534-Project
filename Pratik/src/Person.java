@@ -27,7 +27,6 @@ public class Person {
 			if ( infect < 40){
 				this.isInfected = true;
 				infectionDay=world.getCurrentDay();
-				world.setHealthyPopulation(world.getHealthyPopulation()-1);
 				world.setInfectedPopulation(world.getInfectedPopulation()+1);
 
 			}
@@ -49,7 +48,7 @@ public class Person {
 		}
 		return isSick;
 	}
-
+ 
 	public void die() {
 
 		if(world.getCurrentDay()-infectionDay==14){
@@ -108,7 +107,7 @@ public class Person {
 	public void chooseADayToMove(){
 		if (world.getCurrentDay()==chosenDay){
 			Random r=new Random();
-			chosenDay=world.getCurrentDay()+r.nextInt(6);
+			chosenDay=world.getCurrentDay() + (r.nextInt(5)+1);
 			chooseDestination();
 		}
 	}
