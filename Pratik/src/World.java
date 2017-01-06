@@ -11,194 +11,139 @@ public class World {
 	int deadPopulation;
 	int infectedPopulation;
 	int currentDay;
-	Person [] person;
-
+	ArrayList<Person> people;
 
 	public World(int P, int N, int X) {
 		population = P;
 		countries = new Country[N][N];
 		numberOfCountries = N * N;
 		infectedPopulation = (P * X) / 100;
-		healthyPopulation=population-infectedPopulation;
-		setCountryPopulations();
-		setNeigbours();
+		healthyPopulation = population - infectedPopulation;
+
 	}
 
-	private void setNeigbours() {
+	public void createWorld() {
+		createPeople();
+		createCountries();
+		setCountryPopulations(population, numberOfCountries);
+		setNeighbours();
+
+	}
+
+	public void createPeople() {
+		people = new ArrayList<Person>();
+		for (int i = 0; i < population; i++) {
+			people.add(new Person());
+		}
+	}
+
+	public void createCountries() {
+		for (int i = 0; i < countries.length; i++) {
+			for (int j = 0; j < countries.length; j++) {
+				countries[i][j] = new Country();
+			}
+		}
+	}
+
+	public void setCountryPopulations(int pop, int numOfCountries) {
+		Random r = new Random();
+		int countryPop = 0;
+		while (pop > 0) {
+			for (int i = 0; i < countries.length; i++) {
+				for (int j = 0; j < countries.length; j++) {
+					if (pop / numOfCountries <= 0) {
+						countries[i][j].population += pop;
+						break;
+					}
+					countryPop = r.nextInt(pop / numOfCountries) + 1;
+					countries[i][j].population += countryPop;
+					pop -= countryPop;
+					numOfCountries--;
+				}
+			}
+			numOfCountries = numberOfCountries;
+		}
+	}
+
+	private void setNeighbours() {
 		setCornersNeighbors();
 		setEdgeNeighbors();
 		setMiddlesNeighbors();
 	}
-	
-	public void setCornersNeighbors(){
-		
-		for(int i=0;i<countries.length;i++){
-			for(int j=0;j<countries.length;j++){
-				if(i==0 && j==0){
-					countries[i][j].southN=countries [i+1][j];
-					countries[i][j].northN = countries [countries.length-1][j];
-					countries[i][j].westN=countries [i][countries.length-1];
-					countries[i][j].eastN=countries [i][j+1];
-				}else if(i==0 && j==countries.length-1){
-					countries[i][j].southN=countries [i+1][j];
-					countries[i][j].northN = countries [countries.length-1][j];
-					countries[i][j].westN=countries [i][j-1];
-					countries[i][j].eastN=countries [i][0];
-				}else if(i==countries.length-1 && j==0){
-					countries[i][j].southN=countries [0][j];
-					countries[i][j].northN = countries [i-1][j];
-					countries[i][j].westN=countries [i][countries.length-1];
-					countries[i][j].eastN=countries [i][j+1];
-				}else if(i==countries.length-1 && j==countries.length-1){
-					countries[i][j].southN=countries [0][j];
-					countries[i][j].northN = countries [i-1][j];
-					countries[i][j].westN=countries [i][j-1];
-					countries[i][j].eastN=countries [i][0];
-				
-				}
-			}
-		}
-	}
-	
-	public void setEdgeNeighbors(){
-		
-		for(int i=0;i<countries.length;i++){
-			for(int j=0;j<countries.length;j++){
-				if(i==0 && j!=0 && j!=countries.length-1){
-					countries[i][j].southN=countries [i+1][j];
-					countries[i][j].northN = countries [countries.length-1][j];
-					countries[i][j].westN=countries [i][j-1];
-					countries[i][j].eastN=countries [i][j+1];
-				
-				}else if(i==countries.length-1 && j!=0 && j!=countries.length-1){
-					countries[i][j].southN=countries [0][j];
-					countries[i][j].northN = countries [i-1][j];
-					countries[i][j].westN=countries [i][j-1];
-					countries[i][j].eastN=countries [i][j+1];
-				
-				}else if(j==0 && i!=0 && i!=countries.length-1){
-					countries[i][j].southN=countries [i+1][j];
-					countries[i][j].northN = countries [i-1][j];
-					countries[i][j].westN=countries [i][countries.length-1];
-					countries[i][j].eastN=countries [i][j+1];
-					
-				}else if(j==countries.length-1 && i!=0 && i!=countries.length-1){
-					countries[i][j].southN=countries [i+1][j];
-					countries[i][j].northN = countries [i-1][j];
-					countries[i][j].westN=countries [i][j-1];
-					countries[i][j].eastN=countries [i][0];
-				
-				}
-			}
-		}
-	}
-	
-	public void setMiddlesNeighbors(){
-		for(int i=0;i<countries.length;i++){
-			for(int j=0;j<countries.length;j++){
-				if(j!= 0 && j!=countries.length-1 && i!=0 && i!=countries.length-1)
-					countries[i][j].southN=countries [i+1][j];
-					countries[i][j].northN = countries [i-1][j];
-					countries[i][j].westN=countries [i][j-1];
-					countries[i][j].eastN=countries [i][j+1];
-			}
-		}
-		
-	}
 
-	public int getPopulation() {
-		return population;
-	}
+	public void setCornersNeighbours() {
 
-	public void setPopulation(int population) {
-		this.population = population;
-	}
-
-
-	public void createWorld(Person [] person) {
-		this.person=person;
-		int assignedPopulation=0;
 		for (int i = 0; i < countries.length; i++) {
 			for (int j = 0; j < countries.length; j++) {
+				if (i == 0 && j == 0) {
+					countries[i][j].southN = countries[i + 1][j];
+					countries[i][j].northN = countries[countries.length - 1][j];
+					countries[i][j].westN = countries[i][countries.length - 1];
+					countries[i][j].eastN = countries[i][j + 1];
+				} else if (i == 0 && j == countries.length - 1) {
+					countries[i][j].southN = countries[i + 1][j];
+					countries[i][j].northN = countries[countries.length - 1][j];
+					countries[i][j].westN = countries[i][j - 1];
+					countries[i][j].eastN = countries[i][0];
+				} else if (i == countries.length - 1 && j == 0) {
+					countries[i][j].southN = countries[0][j];
+					countries[i][j].northN = countries[i - 1][j];
+					countries[i][j].westN = countries[i][countries.length - 1];
+					countries[i][j].eastN = countries[i][j + 1];
+				} else if (i == countries.length - 1 && j == countries.length - 1) {
+					countries[i][j].southN = countries[0][j];
+					countries[i][j].northN = countries[i - 1][j];
+					countries[i][j].westN = countries[i][j - 1];
+					countries[i][j].eastN = countries[i][0];
 
-				for (int a=0;a<countries[i][j].population;a++){
-					person[a+assignedPopulation].setPosition(countries [i][j]);
-				}	
-				assignedPopulation= assignedPopulation+countries[i][j].population;
-			}
-		}
-
-	}
-
-	public void setCountryPopulations() {
-		Random r = new Random();
-		int tempPopulation = population;
-		int tempNumberOfCountries = numberOfCountries;
-		int z = 0;
-		while (tempPopulation > 0) {
-			for (int i = 0; i < countries.length; i++) {
-				for (int j = 0; j < countries.length; j++) {
-					if(tempPopulation <= 0) break;
-					//System.out.println(tempNumberOfCountries+"***");
-					//System.out.println(tempPopulation);
-					z = r.nextInt(tempPopulation)+1;					
-					if (countries[i][j]==null){
-						countries[i][j] = new Country(z);
-						tempPopulation -= z;
-					}else if (countries[i][j].getPopulation()+z<=numberOfCountries){
-						countries[i][j].setPopulation(countries[i][j].getPopulation()+z);
-						tempPopulation -= z;
-					}
-
-					//tempNumberOfCountries--;
 				}
 			}
-			tempNumberOfCountries = numberOfCountries;
 		}
 	}
 
-	public int getHealthyPopulation() {
-		return healthyPopulation;
+	public void setEdgeNeighbours() {
+
+		for (int i = 0; i < countries.length; i++) {
+			for (int j = 0; j < countries.length; j++) {
+				if (i == 0 && j != 0 && j != countries.length - 1) {
+					countries[i][j].southN = countries[i + 1][j];
+					countries[i][j].northN = countries[countries.length - 1][j];
+					countries[i][j].westN = countries[i][j - 1];
+					countries[i][j].eastN = countries[i][j + 1];
+
+				} else if (i == countries.length - 1 && j != 0 && j != countries.length - 1) {
+					countries[i][j].southN = countries[0][j];
+					countries[i][j].northN = countries[i - 1][j];
+					countries[i][j].westN = countries[i][j - 1];
+					countries[i][j].eastN = countries[i][j + 1];
+
+				} else if (j == 0 && i != 0 && i != countries.length - 1) {
+					countries[i][j].southN = countries[i + 1][j];
+					countries[i][j].northN = countries[i - 1][j];
+					countries[i][j].westN = countries[i][countries.length - 1];
+					countries[i][j].eastN = countries[i][j + 1];
+
+				} else if (j == countries.length - 1 && i != 0 && i != countries.length - 1) {
+					countries[i][j].southN = countries[i + 1][j];
+					countries[i][j].northN = countries[i - 1][j];
+					countries[i][j].westN = countries[i][j - 1];
+					countries[i][j].eastN = countries[i][0];
+
+				}
+			}
+		}
 	}
 
-	public void setHealthyPopulation(int healthyPopulation) {
-		this.healthyPopulation = healthyPopulation;
+	public void setMiddlesNeighbours() {
+		for (int i = 0; i < countries.length; i++) {
+			for (int j = 0; j < countries.length; j++) {
+				if (j != 0 && j != countries.length - 1 && i != 0 && i != countries.length - 1)
+					countries[i][j].southN = countries[i + 1][j];
+				countries[i][j].northN = countries[i - 1][j];
+				countries[i][j].westN = countries[i][j - 1];
+				countries[i][j].eastN = countries[i][j + 1];
+			}
+		}
 	}
-
-	public int getSickPopulation() {
-		return sickPopulation;
-	}
-
-	public void setSickPopulation(int sickPopulation) {
-		this.sickPopulation = sickPopulation;
-	}
-
-	public int getDeadPopulation() {
-		return deadPopulation;
-	}
-
-	public void setDeadPopulation(int deadPopulation) {
-		this.deadPopulation = deadPopulation;
-	}
-
-	public int getInfectedPopulation() {
-		return infectedPopulation;
-	}
-
-	public void setInfectedPopulation(int infectedPopulation) {
-		this.infectedPopulation = infectedPopulation;
-	}
-
-	public int getCurrentDay() {
-		return currentDay;
-	}
-
-	public void setCurrentDay(int currentDay) {
-		this.currentDay = currentDay;
-	}
-
 
 }
-
-
-
