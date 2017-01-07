@@ -60,32 +60,37 @@ public class World implements Visitable {
     }
 
     public void setCountryPopulations(int pop, int num) {
-        Random r = new Random();
-        int rand;
-        int total = 0;
-        while (pop > 0) {
-            if (total == population) break;
-            for (int i = 0; i < countries.length; i++) {
-                if (total == population) break;
-                for (int j = 0; j < countries.length; j++) {
-                    if (pop / num <= 0) {
-                        countries[i][j].population += pop;
-                        total += pop;
-                        num--;
-                        break;
-                    } else {
-                        rand = r.nextInt(pop / num) + 1;
-                        countries[i][j].population += rand;
-                        pop -= rand;
-                        num--;
-                        total += rand;
-                    }
-                    if (num == 0) {
-                        num = numberOfCountries;
-                    }
-                }
-            }
-        }
+
+		int numOfCountries=num;
+		int tempPop=pop;
+		int random=0;
+
+		Random r = new Random();
+
+		while (tempPop>0){
+			for(int i=0;i<countries.length;i++){
+				for(int j=0;j<countries.length;j++){
+					if(countries[i][j].population==0){
+						random=  r.nextInt(tempPop/numOfCountries)+1;
+						countries[i][j].population = random;
+						tempPop= tempPop-random;
+						
+						numOfCountries--;
+					}else if (tempPop>0) {
+						System.out.println();
+						random =r.nextInt(1)+1;
+						if (tempPop-random>=0){
+							countries[i][j].population = countries[i][j].population + random;
+							tempPop= tempPop-random;
+							
+						}
+					}
+				}
+				
+			}
+			numOfCountries=numberOfCountries;
+		}
+
     }
 
     private void setNeighbours() {

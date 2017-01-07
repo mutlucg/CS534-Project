@@ -10,7 +10,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		World world =new World(100,3,0);
+		World world =new World(100,3,0,1);
 		
 		world.createWorld();
 		
