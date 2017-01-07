@@ -4,7 +4,6 @@ import java.util.Random;
 
 public class Person {
 
-
 	Country location;
 	int infectionDay;
 	boolean isInfected;
@@ -17,7 +16,6 @@ public class Person {
 
 	public Person(){
 
-		
 	}
 
 	public void setLocation(Country country) {

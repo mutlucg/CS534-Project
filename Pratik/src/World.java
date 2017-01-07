@@ -19,7 +19,6 @@ public class World implements Visitable {
 		numberOfCountries = N * N;
 		infectedPopulation = (P * X) / 100;
 		healthyPopulation = population - infectedPopulation;
-
 	}
 
 	public void createWorld() {
@@ -29,7 +28,6 @@ public class World implements Visitable {
 		setCitizens();
 		setCountryPopulations(population, numberOfCountries);
 		setNeighbours();
-
 	}
 
 	private void setCitizens() {
@@ -46,7 +44,7 @@ public class World implements Visitable {
 	}
 
 	public void createPeople() {
-		people = new ArrayList<Person>();
+		people = new ArrayList<>();
 		for (int i = 0; i < population; i++) {
 			people.add(new Person());
 		}
@@ -60,12 +58,9 @@ public class World implements Visitable {
 		}
 	}
 
-	
-					
 	public void setCountryPopulations(int pop, int num) {
-		
 		Random r = new Random();
-		int rand = 0;
+		int rand;
 		int total = 0;
 		while(pop > 0){
 			if(total == population) break;
@@ -99,7 +94,6 @@ public class World implements Visitable {
 	}
 
 	public void setCornersNeighbours() {
-
 		for (int i = 0; i < countries.length; i++) {
 			for (int j = 0; j < countries.length; j++) {
 				if (i == 0 && j == 0) {
@@ -129,7 +123,6 @@ public class World implements Visitable {
 	}
 
 	public void setEdgeNeighbours() {
-
 		for (int i = 0; i < countries.length; i++) {
 			for (int j = 0; j < countries.length; j++) {
 				if (i == 0 && j != 0 && j != countries.length - 1) {
