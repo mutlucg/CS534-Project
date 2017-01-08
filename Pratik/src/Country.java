@@ -65,9 +65,10 @@ public class Country {
 		}
 	}
 	boolean isInfected() {
+		
+		checkInfection();
 
-
-		return infectedPopulation > 0 || deadPopulation > 0 || sickPopulation > 0;
+		return (infectedPopulation > 0 || deadPopulation > 0 || sickPopulation > 0);
 	}
 
 	public void addNeighbours(Country s, Country n, Country w, Country e){
