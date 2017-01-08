@@ -6,7 +6,7 @@ public class Person {
 
 	Country location;
 	private Radio radio;
-	private int infectionDay;
+	int infectionDay;
 	boolean isInfected;
 	boolean isSick;
 	boolean isDead;
@@ -40,6 +40,7 @@ public class Person {
 				this.isInfected = true;
 				infectionDay=radio.currentDay;
 				radio.infectedCount=radio.infectedCount+1;
+				
 
 			}
 			else

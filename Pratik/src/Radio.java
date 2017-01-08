@@ -18,7 +18,7 @@ public class Radio implements Visitor {
         this.sickCount = world.sickPopulation;
         this.infectedCount = world.infectedPopulation;
         this.healthyPopulation = world.healthyPopulation;
-        this.transportationParam = world.transportationParameter;
+
         checkCountriesForInfection(world);
     }
 

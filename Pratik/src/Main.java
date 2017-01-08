@@ -10,16 +10,80 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		World world =new World(100,3,0,0);
+					
 		
+		
+		World world=new World(5, 2, 20, 0);
 		world.createWorld();
+		
+		
+		/*	
 		
 		for(int i=0;i<world.countries.length;i++){
 			for (int j=0;j<world.countries.length;j++){
 				System.out.println(world.countries[i][j].population);
 			}
+}
+		int a=0;
+		while(a!=20){
 
-		/*	System.out.println("people:");
+			System.out.println("-------------------DAY--"+world.getCurrentDay()+"----------");
+			System.out.println("WorldDead: "+world.getDeadPopulation());
+			System.out.println("World Healty:"+world.healthyPopulation);
+			System.out.println(world.infectedPopulation);
+			System.out.println(world.sickPopulation);
+			System.out.println(world.population);
+		
+		
+		
+			
+			for(int i=0;i<world.countries.length;i++){
+				for (int j=0;j<world.countries.length;j++){
+					
+					System.out.println("---Country "+i+j);
+					
+					
+					world.countries[i][j].currentDay=world.getCurrentDay();
+							world.countries[i][j].checkInfection();
+					System.out.println("Population :" + world.countries[i][j].population);
+					System.out.println("Healty :" + world.countries[i][j].healthyPopulation);
+					System.out.println("Infected :" + world.countries[i][j].infectedPopulation);
+					System.out.println("Sick :" + world.countries[i][j].sickPopulation);
+					System.out.println("Dead :" + world.countries[i][j].deadPopulation);
+
+				}
+
+
+
+			}
+			world.currentDay=world.currentDay+1;
+			a++;
+			}
+		
+		
+	
+
+		Gui gui=new Gui();
+
+		gui.contunie();
+
+		World world =new World(gui.getTotalPopulation(),gui.getNGrid(),
+				gui.getRateOfSickness(),0);
+		System.out.println(gui.getTotalPopulation());
+		System.out.println(world.population);
+		world.createWorld();
+		gui.world=world;
+
+
+
+
+	
+		for(int i=0;i<world.countries.length;i++){
+			for (int j=0;j<world.countries.length;j++){
+				System.out.println(world.countries[i][j].population);
+			}
+}
+			System.out.println("people:");
 		people=scanner.nextInt();
 		System.out.println("n:");
 		n=scanner.nextInt();
@@ -28,12 +92,12 @@ public class Main {
 		System.out.println("Day");
 		day=scanner.nextInt();
 
-		 
+
 
 		World world=new World(people,n,rate);
 		world.createWorld();
 
-		
+
 		}
 			int a=1;
 		while(!(a==day)){
@@ -66,9 +130,8 @@ public class Main {
 			}
 		 */
 	}
-	}
-
 }
+
 
 
 
