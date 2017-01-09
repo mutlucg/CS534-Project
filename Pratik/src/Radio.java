@@ -25,12 +25,17 @@ public class Radio implements Visitor {
     public ArrayList<Country> checkCountriesForInfection(World world) {
         for (int i = 0; i < world.countries.length; i++) {
             for (int j = 0; j < world.countries[0].length; j++) {
-                if(!world.countries[i][j].isInfected()){
+                if(!world.countries[i][j].isInfected(currentDay)){
                     nonInfectedCountries.add(world.countries[i][j]);
                 }
             }
         }
         return nonInfectedCountries;
     }
+    
+    public int getCurrentDay(){
+    	return currentDay;
+    }
+    
 
 }

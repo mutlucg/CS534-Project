@@ -56,16 +56,18 @@ public class World implements Visitable {
 				infected=makePeopleInfected(i,infected);
 			}
 		}
+		
 	}
 
 	public  int makePeopleInfected(int i,int infected) {
-		Random r=new Random();
+		/*Random r=new Random();
 		int random=r.nextInt(2);
 		if (random == 1){
+		*/
 			people.get(i).isInfected=true;
-			people.get(i).infectionDay=1;
+			people.get(i).infectionDay=0;
 			infected--;
-		}		
+			
 		return infected;
 	}
 
@@ -97,7 +99,6 @@ public class World implements Visitable {
 
 						numOfCountries--;
 					}else if (tempPop>0) {
-						System.out.println();
 						random =r.nextInt(1)+1;
 						if (tempPop-random>=0){
 							countries[i][j].population = countries[i][j].population + random;

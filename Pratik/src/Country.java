@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Country {
+public class Country  {
 
 	int currentDay;
 	Country westN;
@@ -18,14 +18,20 @@ public class Country {
 	ArrayList<Person> person = new ArrayList<>();
 
 	public Country() {
+		
 
-	}
+	}	
 
-	public void checkInfection(){
+	public void checkInfection(int currentDay){
+		this.currentDay=currentDay;
 
-		checkInfectedPeople();
-		checkSickPeople();
-		checkDeadPeople();
+		if (currentDay==1)checkInfectedPeople();
+		
+		for (int i =0;i<person.size();i++){
+			person.get(i).survive();
+		}
+
+
 
 	}
 
@@ -46,7 +52,8 @@ public class Country {
 	public void checkInfectedPeople() {
 
 		for (int i =0;i<person.size();i++){
-			if (person.get(i).isInfected==true && person.get(i).infectionDay==currentDay) {
+			if (person.get(i).isInfected==true){
+				person.get(i).infectionDay=0;
 				infectedPopulation++;
 				healthyPopulation--;
 			}
@@ -64,11 +71,11 @@ public class Country {
 			}
 		}
 	}
-	boolean isInfected() {
-		
-		checkInfection();
+	boolean isInfected(int currentDay) {
 
-		return (infectedPopulation > 0 || deadPopulation > 0 || sickPopulation > 0);
+		checkInfection(currentDay);
+
+		return (deadPopulation > 0 || sickPopulation > 0); // infected olup belli olmayabilir
 	}
 
 	public void addNeighbours(Country s, Country n, Country w, Country e){
@@ -87,4 +94,46 @@ public class Country {
 		this.population = population;
 
 	}
+
+	public void setInfectedPopulation(int infectedPopulation) {
+		this.infectedPopulation=infectedPopulation;
+
+	}
+
+	public int getInfectedPopulation() {
+		// TODO Auto-generated method stub
+		return infectedPopulation;
+	}
+
+	public int getHealthyPopulation() {
+		// TODO Auto-generated method stub
+		return healthyPopulation;
+	}
+
+	public void setHealthyPopulation(int healthyPopulation) {
+		this.healthyPopulation=healthyPopulation;
+		// TODO Auto-generated method stub
+
+	}
+
+	public int getSickPopulation() {
+		// TODO Auto-generated method stub
+		return sickPopulation;
+	}
+
+	public void setSickPopulation(int sickPopulation) {
+		this.sickPopulation=sickPopulation;		
+	}
+
+	public int getdeadPopulation() {
+		// TODO Auto-generated method stub
+		return deadPopulation;
+	}
+
+	public void setdeadPopulation(int deadPopulation) {
+		this.deadPopulation=deadPopulation;		
+	}
+
+
+
 }

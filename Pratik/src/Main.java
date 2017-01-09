@@ -9,43 +9,59 @@ public class Main {
 	static int day;
 
 	public static void main(String[] args) {
+
+
+
+		//Gui gui=new Gui();
+
+		//gui.contunie();
+
+		//World world =new World(gui.getTotalPopulation(),gui.getNGrid(),	gui.getRateOfSickness(),0);
 		
-					
+			Radio radio=new Radio();
+		World world=new World(10, 3, 30, 1);
+		world.createWorld();
+
+		Display info = new Display(world,radio);
+		info.display();
 		
-		
-		World world=new World(5, 2, 20, 0);
+	
+		/*	
+		World world=new World(10, 1, 30, 0);
+		Radio radio = new Radio();
 		world.createWorld();
 		
-		
-		/*	
-		
+
+
+
+
 		for(int i=0;i<world.countries.length;i++){
 			for (int j=0;j<world.countries.length;j++){
 				System.out.println(world.countries[i][j].population);
 			}
-}
+		}
 		int a=0;
 		while(a!=20){
 
-			System.out.println("-------------------DAY--"+world.getCurrentDay()+"----------");
-			System.out.println("WorldDead: "+world.getDeadPopulation());
-			System.out.println("World Healty:"+world.healthyPopulation);
-			System.out.println(world.infectedPopulation);
-			System.out.println(world.sickPopulation);
-			System.out.println(world.population);
+			radio.visit(world);
+
+			System.out.println("-------------------DAY--"+radio.getCurrentDay()+"----------");
+		///	System.out.println("WorldDead: "+world.getDeadPopulation());
+			//System.out.println("World Healty:"+world.healthyPopulation);
+			//System.out.println(world.infectedPopulation);
+			//System.out.println(world.sickPopulation);
+			//System.out.println(world.population);
 		
-		
-		
-			
+
 			for(int i=0;i<world.countries.length;i++){
 				for (int j=0;j<world.countries.length;j++){
+
+					System.out.println("---Country "+world.countries[i][j]);
+
+
+					//world.countries[i][j].currentDay=world.getCurrentDay();
 					
-					System.out.println("---Country "+i+j);
-					
-					
-					world.countries[i][j].currentDay=world.getCurrentDay();
-							world.countries[i][j].checkInfection();
-					System.out.println("Population :" + world.countries[i][j].population);
+					System.out.println("Population :" +world.countries[i][j].population);
 					System.out.println("Healty :" + world.countries[i][j].healthyPopulation);
 					System.out.println("Infected :" + world.countries[i][j].infectedPopulation);
 					System.out.println("Sick :" + world.countries[i][j].sickPopulation);
@@ -53,15 +69,15 @@ public class Main {
 
 				}
 
-
-
+				
 			}
+			
 			world.currentDay=world.currentDay+1;
 			a++;
-			}
+		}
+
+
 		
-		
-	
 
 		Gui gui=new Gui();
 
@@ -77,7 +93,7 @@ public class Main {
 
 
 
-	
+
 		for(int i=0;i<world.countries.length;i++){
 			for (int j=0;j<world.countries.length;j++){
 				System.out.println(world.countries[i][j].population);
@@ -98,7 +114,7 @@ public class Main {
 		world.createWorld();
 
 
-		}
+
 			int a=1;
 		while(!(a==day)){
 			for (int i=0;i<people;i++){
