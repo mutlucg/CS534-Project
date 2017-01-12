@@ -117,7 +117,6 @@ public class Person {
 	public void survive(){
 
 		currentDay=location.currentDay;
-		if (isSuper)
 		travel();
 		chooseADayToMove();
 		getInfected();

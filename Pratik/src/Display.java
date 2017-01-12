@@ -54,11 +54,13 @@ public class Display implements ActionListener{
 				"<br>  Total sick population: "+radio.sickCount+
 				"<br>  Total dead population: "+radio.deadCount +"<html>");
 
-		worldLabel.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 25));
+		worldLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 25));
 
 		countryText = new TextArea(collectCountryInfo());
-		countryText.setFont(new Font("Courier New", Font.BOLD, 30));
-		countryText.setBackground(Color.LIGHT_GRAY);
+		countryText.setPreferredSize(new Dimension(500,700));
+		countryText.setFont(new Font("Courier New", Font.PLAIN, 20));
+		countryText.setBackground(new Color(70,10,50));
+		countryText.setForeground(new Color(250,210,250));
 
 		panel.add(dayLabel);
 		panel.add(countryText);
@@ -76,7 +78,7 @@ public class Display implements ActionListener{
 		for (int i =0;i<world.countries.length;i++){
 			for (int j =0;j<world.countries.length;j++){
 
-				countryInfo= countryInfo +"---- COUNTRY "+a +"-------\n"
+				countryInfo= countryInfo +"\n"+"---- COUNTRY "+a +"-------\n"
 						+ " Total Population :"+ world.countries[i][j].population+ "\n"
 						+ "Healthy Population: " + world.countries[i][j].healthyPopulation+ "\n"
 						+ " Infected Population "+ world.countries[i][j].infectedPopulation+ "\n"
@@ -102,14 +104,14 @@ public class Display implements ActionListener{
 		panel= new JPanel();
 		buttonPanel =new JPanel();
 
-		panel.setBackground(Color.pink);
-		buttonPanel.setBackground(Color.pink);
+		panel.setBackground(new Color(110,100,120));
+		buttonPanel.setBackground(new Color(110,100,120));
 
 		frame.add(panel);
 		frame.add(buttonPanel,BorderLayout.EAST);
 
 		frame.setVisible(true);
-		frame.setSize(1200, 800);
+		frame.setSize(1100, 800);
 		frame.setDefaultCloseOperation(1);
 		frame.setResizable(false);
 
@@ -121,7 +123,7 @@ public class Display implements ActionListener{
 		worldLabel.setText("<html> Total population:" + radio.worldPopulation + 
 				"<br>  Total infected population: "+radio.infectedCount +
 				"<br>  Total sick population: "+radio.sickCount+
-				"<br>  Total dead population: "+radio.deadCount +"<html>.");
+				"<br>  Total dead population: "+radio.deadCount +"<html>."); // radiodan sadece baslangicta info aliyolar
 		
 		countryText.setText(collectCountryInfo());
 

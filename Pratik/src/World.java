@@ -14,13 +14,15 @@ public class World implements Visitable {
 	int currentDay;
 	int superPopulation;
 	ArrayList<Person> people;
+	private int numberOfDoctors;
 
-	public World(int P, int N, int X,int S, int A) {
+	public World(int P, int N, int X,int S,int D, int A) {
 		currentDay=1;
 		population = P;
 		countries = new Country[N][N];
 		numberOfCountries = N * N;
-		superPopulation= (P*S) /100;
+		superPopulation= (P*S) / 100;
+		numberOfDoctors = (D*P) /100;
 		transportationParameter = A;
 		infectedPopulation = (P * X) / 100;
 		healthyPopulation = population - infectedPopulation;
