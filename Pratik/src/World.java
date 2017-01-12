@@ -12,13 +12,15 @@ public class World implements Visitable {
 	int deadPopulation;
 	int infectedPopulation;
 	int currentDay;
+	int superPopulation;
 	ArrayList<Person> people;
 
-	public World(int P, int N, int X, int A) {
+	public World(int P, int N, int X,int S, int A) {
 		currentDay=1;
 		population = P;
 		countries = new Country[N][N];
 		numberOfCountries = N * N;
+		superPopulation= (P*S) /100;
 		transportationParameter = A;
 		infectedPopulation = (P * X) / 100;
 		healthyPopulation = population - infectedPopulation;
@@ -26,11 +28,35 @@ public class World implements Visitable {
 
 	public void createWorld() {
 		createPeople();
+		makePeopleSuper();
+		makePeopleInfected();
 		createCountries();
 		setCountryPopulations(population, numberOfCountries);
 		setCitizens();
 		setNeighbours();
 	}
+
+	public void makePeopleSuper(){
+		for (int i=0;i<superPopulation;i++){
+			people.get(i).isSuper=true;
+
+		}
+
+	}
+
+	public void makePeopleInfected(){
+		int infected=infectedPopulation;
+		for (int i=0;i<population;i++){
+			if(	!people.get(i).isSuper && infected > 0){
+				people.get(i).isInfected=true;
+				people.get(i).infectionDay=0;
+				infected--;
+				}
+
+			}
+
+		}
+	
 
 	private void setCitizens() {
 		int count = 0;
@@ -49,27 +75,14 @@ public class World implements Visitable {
 
 	public void createPeople() {
 		people = new ArrayList<>();
-		int infected=infectedPopulation;
+
 		for (int i = 0; i < population; i++) {
 			people.add(new Person());
-			if (infected>0)	{
-				infected=makePeopleInfected(i,infected);
-			}
+
 		}
-		
+
 	}
 
-	public  int makePeopleInfected(int i,int infected) {
-		/*Random r=new Random();
-		int random=r.nextInt(2);
-		if (random == 1){
-		*/
-			people.get(i).isInfected=true;
-			people.get(i).infectionDay=0;
-			infected--;
-			
-		return infected;
-	}
 
 	public void createCountries() {
 		for (int i = 0; i < countries.length; i++) {

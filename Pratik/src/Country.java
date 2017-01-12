@@ -41,7 +41,7 @@ public class Country  {
 			if (person.get(i).isSick==true){
 				infectedPopulation--;
 				sickPopulation++;
-				healthyPopulation--;
+				infectedPopulation--;
 
 			}
 
@@ -67,15 +67,14 @@ public class Country  {
 			if (person.get(i).isDead==true) {
 				person.remove(i);
 				deadPopulation++;
-				healthyPopulation--;
+				sickPopulation--;
 			}
 		}
 	}
 	boolean isInfected(int currentDay) {
 
 		checkInfection(currentDay);
-
-		return (deadPopulation > 0 || sickPopulation > 0); // infected olup belli olmayabilir
+		return (deadPopulation > 0 || sickPopulation > 0) ; // infected olup belli olmayabilir
 	}
 
 	public void addNeighbours(Country s, Country n, Country w, Country e){

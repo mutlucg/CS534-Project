@@ -19,7 +19,7 @@ public class Main {
 		//World world =new World(gui.getTotalPopulation(),gui.getNGrid(),	gui.getRateOfSickness(),0);
 		
 			Radio radio=new Radio();
-		World world=new World(10, 3, 30, 1);
+		World world=new World(4, 2, 50,50, 60);
 		world.createWorld();
 
 		Display info = new Display(world,radio);

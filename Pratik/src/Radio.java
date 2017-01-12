@@ -17,12 +17,13 @@ public class Radio implements Visitor {
         this.deadCount = world.deadPopulation;
         this.sickCount = world.sickPopulation;
         this.infectedCount = world.infectedPopulation;
-        this.healthyPopulation = world.healthyPopulation;
+                this.healthyPopulation = world.healthyPopulation;
 
         checkCountriesForInfection(world);
     }
 
     public ArrayList<Country> checkCountriesForInfection(World world) {
+    	nonInfectedCountries = new ArrayList<>();
         for (int i = 0; i < world.countries.length; i++) {
             for (int j = 0; j < world.countries[0].length; j++) {
                 if(!world.countries[i][j].isInfected(currentDay)){

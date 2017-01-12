@@ -15,6 +15,7 @@ public class Person {
 	int currentDay;
 	int transportation;
 	int travelDay;
+	boolean isSuper;
 
 	public Person() {
 		radio = new Radio();
@@ -36,22 +37,22 @@ public class Person {
 
 	public void getInfected() {
 
-		Random r = new Random();
-		int infect = r.nextInt(100);
-		if ( infect < 40){
-			this.isInfected = true;
-			location.setInfectedPopulation(location.getInfectedPopulation()+1);
-			location.setHealthyPopulation(location.getHealthyPopulation()-1);
+		if(!isSuper && !isInfected && infectionDay!=0 && !isImmune && travelDay==currentDay){
+			Random r = new Random();
+			int infect = r.nextInt(100);
+			if ( infect < 40){
+				this.isInfected = true;
+				location.setInfectedPopulation(location.getInfectedPopulation()+1);
+				location.setHealthyPopulation(location.getHealthyPopulation()-1);
 
+			}
+			else
+				this.isInfected = false;
 		}
-		else
-			this.isInfected = false;
-
-
 	}
 
-	public boolean getSick(){
-		if (currentDay-infectionDay==6){
+	public void getSick(){
+		if (isInfected && currentDay-infectionDay==6){
 			isSick=true;
 			looksInfectious= true;
 
@@ -61,13 +62,12 @@ public class Person {
 
 
 		}
-		return isSick;
 	}
 
 	public void die() {
 
 
-		if(currentDay-infectionDay==14){
+		if(isSick && currentDay-infectionDay==14){
 
 			Random r = new Random();
 			int infect = r.nextInt(100);
@@ -85,12 +85,12 @@ public class Person {
 
 	public void getImmune(){
 
-		if (currentDay-infectionDay==16){
+		if (isSick && !isDead && currentDay-infectionDay==16){
 			isImmune=true;
 			isSick=false;
 			looksInfectious= false;
 
-		//	location.setSickPopulation(location.getSickPopulation()-1);
+			location.setSickPopulation(location.getSickPopulation()-1);
 			//location.setHealthyPopulation(location.getHealthyPopulation()+1);
 
 			//location.setInfectedPopulation(location.getInfectedPopulation()-1);
@@ -102,11 +102,11 @@ public class Person {
 
 	public void getHealty(){
 
-		if (currentDay-infectionDay==18){
+		if (isImmune && currentDay-infectionDay==18){
 			isImmune=false;
 			isInfected=false;
 
-			location.setSickPopulation(location.getSickPopulation()-1);
+			//location.setSickPopulation(location.getSickPopulation()-1);
 			location.setHealthyPopulation(location.getHealthyPopulation()+1);
 
 
@@ -117,31 +117,34 @@ public class Person {
 	public void survive(){
 
 		currentDay=location.currentDay;
-		chooseADayToMove();
+		if (isSuper)
 		travel();
-		if(!isInfected && infectionDay!=0 && !isImmune && travelDay==currentDay)	getInfected();
-		if(isInfected) getSick();
-		if (isSick) {
-			die();
-			if(!isDead)getImmune();
-		}
-		if (!isDead && isImmune)getHealty();
+		chooseADayToMove();
+		getInfected();
+		getSick();
+		die();
+		getImmune();
+		getHealty();
 
 	}
 
-	public void chooseADayToMove(){
-		if (currentDay==1||currentDay==travelDay){
 
+	public void chooseADayToMove(){
+
+		if (currentDay==1||currentDay==travelDay){
 			Random r=new Random();
 			travelDay=currentDay + (r.nextInt(5)+1);
+
 		}
 	}
 
 	public void travel(){
-		chooseTransportation();
-		if (transportation == 1) {
-			chooseDestinationForFlight();
-		} else chooseDestinationForNonFlight();
+		if (currentDay== travelDay){
+			transportation=chooseTransportation();
+			if (transportation == 1) {
+				chooseDestinationForFlight();
+			} else chooseDestinationForNonFlight();
+		}
 	}
 	public int chooseTransportation() {
 		Random r = new Random();
@@ -155,40 +158,65 @@ public class Person {
 	}
 
 	private void chooseDestinationForFlight() {
+		Country oldLocation=location;
 		ArrayList<Country> destinationCountries = new ArrayList<>();
 		for (Country c : radio.nonInfectedCountries) {
 			destinationCountries.add(c);
 		}
 		Random r = new Random();
 		int option = r.nextInt(destinationCountries.size());
+
 		location = destinationCountries.get(option);
+		moveFromACountry(oldLocation);
+		moveToACountry(location);
+
+
 	}
 
 	private void chooseDestinationForNonFlight() {
+
+		
+
 		ArrayList<Country> destinationCountries = new ArrayList<>();
-		for (Country c : radio.nonInfectedCountries) {
+		for (Country c : radio.nonInfectedCountries) {   ///for icine girmiyor
 			for (int i = 0; i < location.neighbours.size(); i++) {
 				if (c == location.neighbours.get(i)) {
 					destinationCountries.add(c);
 				}
 			}
-			Random r = new Random();
+
+
+			Country oldLocation = location;
+			Random r = new Random(); 
 			if(destinationCountries.size()>0){
 				int option = r.nextInt(destinationCountries.size());
 
 				location = destinationCountries.get(option);
-				move();
-				
+				moveFromACountry(oldLocation);
+				moveToACountry(location);
+
+
 			}
 		}
 	}
 
-	private void move() {
+	private void moveFromACountry(Country oldLocation) {
+		System.out.println(oldLocation);
+		oldLocation.person.remove(this);
+		oldLocation.setPopulation(oldLocation.getPopulation()-1);
+		if (isInfected) oldLocation.setInfectedPopulation(oldLocation.getInfectedPopulation()-1);
+		else if (isSick) oldLocation.setSickPopulation(oldLocation.getSickPopulation()-1);
+		else oldLocation.setHealthyPopulation(oldLocation.getHealthyPopulation()-1);
+
+	}
+
+	private void moveToACountry(Country location) {
+System.out.println(location);
 		location.person.add(this);
 		location.setPopulation(location.getPopulation()+1);
 		if (isInfected) location.setInfectedPopulation(location.getInfectedPopulation()+1);
 		else if (isSick) location.setSickPopulation(location.getSickPopulation()+1);
 		else location.setHealthyPopulation(location.getHealthyPopulation()+1);
-		
+
 	}
 }
