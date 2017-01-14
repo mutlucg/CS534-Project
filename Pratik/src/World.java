@@ -40,7 +40,7 @@ public class World implements Visitable {
 
 	public void makePeopleSuper(){
 		for (int i=0;i<superPopulation;i++){
-			people.get(i).isSuper=true;
+			people.get(i).setSuper(true);
 
 		}
 
@@ -49,9 +49,9 @@ public class World implements Visitable {
 	public void makePeopleInfected(){
 		int infected=infectedPopulation;
 		for (int i=0;i<population;i++){
-			if(	!people.get(i).isSuper && infected > 0){
-				people.get(i).isInfected=true;
-				people.get(i).infectionDay=0;
+			if(	!people.get(i).isSuper() && infected > 0){
+				people.get(i).setInfected(true);
+				people.get(i).setInfectionDay(0);
 				infected--;
 				}
 

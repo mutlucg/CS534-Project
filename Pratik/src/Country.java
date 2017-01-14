@@ -30,29 +30,13 @@ public class Country  {
 		for (int i =0;i<person.size();i++){
 			person.get(i).survive();
 		}
-
-
-
 	}
 
-	public void checkSickPeople() {
-
-		for (int i =0;i<person.size();i++){
-			if (person.get(i).isSick==true){
-				infectedPopulation--;
-				sickPopulation++;
-				infectedPopulation--;
-
-			}
-
-		}
-
-	}
 
 	public void checkInfectedPeople() {
 
 		for (int i =0;i<person.size();i++){
-			if (person.get(i).isInfected==true){
+			if (person.get(i).isInfected){
 				person.get(i).infectionDay=0;
 				infectedPopulation++;
 				healthyPopulation--;
@@ -61,16 +45,7 @@ public class Country  {
 
 	}
 
-	public void checkDeadPeople(){
 
-		for (int i =0;i<person.size();i++){
-			if (person.get(i).isDead==true) {
-				person.remove(i);
-				deadPopulation++;
-				sickPopulation--;
-			}
-		}
-	}
 	boolean isInfected(int currentDay) {
 
 		checkInfection(currentDay);

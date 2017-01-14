@@ -4,18 +4,18 @@ import java.util.Random;
 
 public class Person {
 
-	Country location;
-	public Radio radio;
+	private Country location;
+	private Radio radio;
 	int infectionDay;
 	boolean isInfected;
-	boolean isSick;
-	boolean isDead;
-	boolean isImmune;
-	boolean looksInfectious;
-	int currentDay;
-	int transportation;
-	int travelDay;
-	boolean isSuper;
+	 boolean isSick;
+	 boolean isDead;
+	 boolean isImmune;
+	 boolean looksInfectious;
+	 int currentDay;
+	 int transportation;
+	 int travelDay;
+	 boolean isSuper;
 
 	public Person() {
 		radio = new Radio();
@@ -76,6 +76,7 @@ public class Person {
 
 				location.setSickPopulation(location.getSickPopulation()-1);
 				location.setdeadPopulation(location.getdeadPopulation()+1);
+				location.setPopulation(location.getPopulation()-1);
 
 
 			}
@@ -200,7 +201,6 @@ public class Person {
 	}
 
 	private void moveFromACountry(Country oldLocation) {
-		System.out.println(oldLocation);
 		oldLocation.person.remove(this);
 		oldLocation.setPopulation(oldLocation.getPopulation()-1);
 		if (isInfected) oldLocation.setInfectedPopulation(oldLocation.getInfectedPopulation()-1);
@@ -210,7 +210,6 @@ public class Person {
 	}
 
 	private void moveToACountry(Country location) {
-System.out.println(location);
 		location.person.add(this);
 		location.setPopulation(location.getPopulation()+1);
 		if (isInfected) location.setInfectedPopulation(location.getInfectedPopulation()+1);
@@ -218,4 +217,29 @@ System.out.println(location);
 		else location.setHealthyPopulation(location.getHealthyPopulation()+1);
 
 	}
+
+	public int getInfectionDay() {
+		return infectionDay;
+	}
+
+	public void setInfectionDay(int infectionDay) {
+		this.infectionDay = infectionDay;
+	}
+
+	public boolean isInfected() {
+		return isInfected;
+	}
+
+	public void setInfected(boolean isInfected) {
+		this.isInfected = isInfected;
+	}
+
+	public boolean isSuper() {
+		return isSuper;
+	}
+
+	public void setSuper(boolean isSuper) {
+		this.isSuper = isSuper;
+	}
+
 }
