@@ -16,7 +16,7 @@ public class World implements Visitable {
 	ArrayList<Person> people;
 	private int numberOfDoctors;
 
-	public World(int P, int N, int X,int S,int D, int A) {
+	public World(int P, int N, int X,int S,int D,int V, int A) {
 		currentDay=1;
 		population = P;
 		countries = new Country[N][N];

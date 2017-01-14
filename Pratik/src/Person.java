@@ -56,8 +56,7 @@ public class Person {
 			isSick=true;
 			looksInfectious= true;
 
-			location.setInfectedPopulation(location.getInfectedPopulation()-1);
-			location.setSickPopulation(location.getSickPopulation()+1);
+		location.setSickPopulation(location.getSickPopulation()+1);
 
 
 
@@ -92,10 +91,7 @@ public class Person {
 			looksInfectious= false;
 
 			location.setSickPopulation(location.getSickPopulation()-1);
-			//location.setHealthyPopulation(location.getHealthyPopulation()+1);
-
-			//location.setInfectedPopulation(location.getInfectedPopulation()-1);
-
+			
 		}
 
 	}
@@ -107,10 +103,8 @@ public class Person {
 			isImmune=false;
 			isInfected=false;
 
-			//location.setSickPopulation(location.getSickPopulation()-1);
 			location.setHealthyPopulation(location.getHealthyPopulation()+1);
-
-
+			location.setInfectedPopulation(location.getInfectedPopulation()-1);
 		}
 
 	}
