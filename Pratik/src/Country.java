@@ -8,7 +8,6 @@ public class Country  {
 	Country northN;
 	Country southN;
 	ArrayList<Country> neighbours = new ArrayList<>();
-
 	String name;
 	int population;
 	int healthyPopulation;
@@ -18,15 +17,11 @@ public class Country  {
 	ArrayList<Person> person = new ArrayList<>();
 
 	public Country() {
-		
-
 	}	
 
 	public void checkInfection(int currentDay){
 		this.currentDay=currentDay;
-
 		if (currentDay==1)checkInfectedPeople();
-		
 		for (int i =0;i<person.size();i++){
 			person.get(i).survive();
 		}
@@ -42,14 +37,12 @@ public class Country  {
 				healthyPopulation--;
 			}
 		}
-
 	}
 
 
 	boolean isInfected(int currentDay) {
-
 		checkInfection(currentDay);
-		return (deadPopulation > 0 || sickPopulation > 0) ; // infected olup belli olmayabilir
+		return (deadPopulation > 0 || sickPopulation > 0) ; 
 	}
 
 	public void addNeighbours(Country s, Country n, Country w, Country e){

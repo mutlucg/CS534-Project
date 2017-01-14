@@ -41,14 +41,12 @@ public class Display implements ActionListener{
 	private JTextField transParameter;
 	private JPanel southPanel;
 	private int population;
-
 	private int n;
 	private int infectedPercent;
 	private int superPercent;
 	private int doctorPercent;
 	private int vaccinatedNumber;
 	private int transportationParameter;
-
 	private String pop;
 	private String nGr;
 	private String infRate;
@@ -56,7 +54,7 @@ public class Display implements ActionListener{
 	private String docRate;
 	private String numVac;
 	private String transPar;
-	 boolean isStarted;
+	boolean isStarted;
 
 	public int getPopulation() {
 		return population;
@@ -103,10 +101,9 @@ public class Display implements ActionListener{
 
 
 	public Display(){
-radio=new Radio();
-
+		radio=new Radio();
 	}
-	
+
 
 	public void getNumbersFromUser(){
 		createFrame();
@@ -115,13 +112,11 @@ radio=new Radio();
 	}
 
 	private void organizeFrame() {
-
 		questionPanel =new JPanel(new GridLayout(8,2));
 		southPanel =new JPanel();
 		createFields();
 		addFields();
 		addButton();
-
 		frame.setTitle("WELCOME TO EPIDEMIC SIMULATION! ");
 		frame.add(questionPanel);
 		frame.add(southPanel,BorderLayout.SOUTH);
@@ -138,6 +133,7 @@ radio=new Radio();
 		numVac = numberOfVaccinated.getText();
 		transPar = transParameter.getText();
 	}
+
 	private void initializeValues() {
 		try{
 			population = Integer.parseInt( String.valueOf(pop));
@@ -153,34 +149,29 @@ radio=new Radio();
 		}
 
 	}
+
 	private void addButton() {
 		continueButton =new JButton("Continue");
 		continueButton.setPreferredSize(new Dimension(300,50));
 		continueButton.addActionListener(this);
 		southPanel.add(continueButton);
-
 	}
-	private void createFields() {
 
+	private void createFields() {
 		totalPopulation= new JLabel ("  Population :");
 		totalPop= new JTextField();
-
 
 		dimension = new JLabel (" N Grid :" );
 		nGrid = new JTextField();
 
-
 		infectionRate = new JLabel (" Infection Rate :");
 		rateOfInfection = new JTextField();
-
 
 		rateOfSuper = new JLabel (" Super People's Rate :");
 		superRate = new JTextField();
 
-
 		rateOfDoc = new JLabel (" Doctor's Rate");
 		doctorRate = new JTextField();
-
 
 		numOfVaccinated = new JLabel ("<html> Maximum number of people to <br>"
 				+ " be vaccinated per day: <html> ");
@@ -188,61 +179,42 @@ radio=new Radio();
 
 		rateOfTransportation = new JLabel (" Transportation Parameter");
 		transParameter = new JTextField();
-
-
 	}
 	private void addFields() {
 
 		questionPanel.add(totalPopulation);
 		questionPanel.add( totalPop);
-
 		questionPanel.add(dimension);
 		questionPanel.add(nGrid);
-
-
 		questionPanel.add(infectionRate);
 		questionPanel.add( rateOfInfection);
-
 		questionPanel.add(rateOfSuper);
 		questionPanel.add( superRate);
-
 		questionPanel.add(rateOfDoc);
 		questionPanel.add(doctorRate);
-
-
 		questionPanel.add(numOfVaccinated);
 		questionPanel.add( numberOfVaccinated);
-
 		questionPanel.add(rateOfTransportation);
 		questionPanel.add( transParameter);
-
 		questionPanel.add(totalPopulation);
 		questionPanel.add( totalPop);
-
 		questionPanel.add(dimension);
 		questionPanel.add(nGrid);
-
-
 		questionPanel.add(infectionRate);
 		questionPanel.add( rateOfInfection);
-
 		questionPanel.add(rateOfSuper);
 		questionPanel.add( superRate);
-
 		questionPanel.add(rateOfDoc);
 		questionPanel.add(doctorRate);
-
-
 		questionPanel.add(numOfVaccinated);
 		questionPanel.add( numberOfVaccinated);
-
 		questionPanel.add(rateOfTransportation);
 		questionPanel.add( transParameter);
 
 	}
+
 	public void displayStatistics(){
-		
-			displayDailyInformation();
+		displayDailyInformation();
 	}
 
 	public void displayDailyInformation(){
@@ -250,22 +222,17 @@ radio=new Radio();
 		addPanel();
 		createInfoScreen();
 		getInfoAboutWorld();
-
-
 	}
 
 	private void addPanel() {
 		panel= new JPanel();
 		buttonPanel =new JPanel();
-
 		panel.setBackground(new Color(110,100,120));
 		buttonPanel.setBackground(new Color(110,100,120));
-
 		frame.add(panel);
 		frame.add(buttonPanel,BorderLayout.EAST);
-
-
 	}
+
 	private void createInfoScreen() {
 
 		dayLabel=new JLabel("---DAY "+ radio.currentDay +"-------------");
@@ -279,7 +246,6 @@ radio=new Radio();
 				"<br>  Dead population: "+radio.deadCount +"<html>.");
 
 		worldLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 25));
-
 		countryText = new TextArea(collectCountryInfo());
 		countryText.setPreferredSize(new Dimension(500,700));
 		countryText.setFont(new Font("Courier New", Font.PLAIN, 20));
@@ -293,7 +259,6 @@ radio=new Radio();
 		nextDay =new JButton("NEXT DAY");
 		buttonPanel.add(nextDay);
 		nextDay.addActionListener(this);
-
 	}
 
 	private String collectCountryInfo() {
@@ -309,10 +274,7 @@ radio=new Radio();
 						+ " Sick Population "+ world.countries[i][j].sickPopulation+ "\n"
 						+ " Dead Population "+ world.countries[i][j].deadPopulation+ "\n";
 				a++;
-
 			}
-
-
 		}
 		return countryInfo;
 	}
@@ -320,21 +282,17 @@ radio=new Radio();
 	public void getInfoAboutWorld(){
 		radio.visit(world);
 		displayWorldInfo();
-
 	}
 
 	public void createFrame(){
 		frame=new JFrame();
 		frame.setSize(1100, 800);
 		frame.setVisible(true);
-		
 		frame.setDefaultCloseOperation(1);
 		frame.setResizable(false);
-
 	}
 
 	public void displayWorldInfo(){
-
 		dayLabel.setText("----------------DAY "+ radio.currentDay+"------------------------");
 		worldLabel.setText("<html>  WORLD STATISTICS "+
 				"<br> Total population:" + radio.worldPopulation + 
@@ -342,9 +300,7 @@ radio=new Radio();
 				"<br> Infected population: "+radio.infectedCount +
 				"<br>  Sick population: "+radio.sickCount+
 				"<br>  Dead population: "+radio.deadCount +"<html>."); 
-
 		countryText.setText(collectCountryInfo());
-
 	}
 
 	@Override
@@ -352,31 +308,22 @@ radio=new Radio();
 		if (event.getSource() == continueButton ){
 			getValuesFromUser();
 			initializeValues();
-						createNewWorld();
-
-		}
-		else if (event.getSource()==nextDay && count %2 ==0 ){
+			createNewWorld();
+		}else if (event.getSource()==nextDay && count %2 ==0 ){
 			count++;
 			world.currentDay=world.currentDay+1;
 			getInfoAboutWorld();
-
-		}
-
-		else if (event.getSource()==nextDay && count %2 ==1 ){
+		}else if (event.getSource()==nextDay && count %2 ==1 ){
 			count++;
 			world.currentDay=world.currentDay+1;
 			getInfoAboutWorld();
-
 		}
-
 	}
 	private void createNewWorld() {
 		world = new World(population,n,infectedPercent,superPercent,doctorPercent,
 				vaccinatedNumber,transportationParameter);
 		world.createWorld();
 		displayStatistics();
-		
 	}
-
 }
 

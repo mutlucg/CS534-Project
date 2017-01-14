@@ -41,9 +41,7 @@ public class World implements Visitable {
 	public void makePeopleSuper(){
 		for (int i=0;i<superPopulation;i++){
 			people.get(i).setSuper(true);
-
 		}
-
 	}
 
 	public void makePeopleInfected(){
@@ -53,12 +51,9 @@ public class World implements Visitable {
 				people.get(i).setInfected(true);
 				people.get(i).setInfectionDay(0);
 				infected--;
-				}
-
 			}
-
 		}
-	
+	}
 
 	private void setCitizens() {
 		int count = 0;
@@ -77,14 +72,10 @@ public class World implements Visitable {
 
 	public void createPeople() {
 		people = new ArrayList<>();
-
 		for (int i = 0; i < population; i++) {
 			people.add(new Person());
-
 		}
-
 	}
-
 
 	public void createCountries() {
 		for (int i = 0; i < countries.length; i++) {
@@ -96,13 +87,10 @@ public class World implements Visitable {
 	}
 
 	public void setCountryPopulations(int pop, int num) {
-
 		int numOfCountries=num;
 		int tempPop=pop;
 		int random=0;
-
 		Random r = new Random();
-
 		while (tempPop>0){
 			for(int i=0;i<countries.length;i++){
 				for(int j=0;j<countries.length;j++){
@@ -111,7 +99,6 @@ public class World implements Visitable {
 						countries[i][j].population = random;
 						countries[i][j].healthyPopulation = countries[i][j].population ;
 						tempPop= tempPop-random;
-
 						numOfCountries--;
 					}else if (tempPop>0) {
 						random =r.nextInt(1)+1;
@@ -119,20 +106,16 @@ public class World implements Visitable {
 							countries[i][j].population = countries[i][j].population + random;
 							countries[i][j].healthyPopulation =countries[i][j].population ;
 							tempPop= tempPop-random;
-
 						}
 					}
 				}
-
 			}
 			numOfCountries=numberOfCountries;
 		}
-
 	}
 
 	private void setNeighbours() {
 		if(numberOfCountries == 1){
-
 		}else if(numberOfCountries == 2) {
 			setCornersNeighbours();
 		}else {
@@ -173,7 +156,6 @@ public class World implements Visitable {
 					countries[i][j].eastN = countries[i][0];
 					countries[i][j].addNeighbours(countries[0][j], countries[i - 1][j],
 							countries[i][j - 1], countries[i][0]);
-
 				}
 			}
 		}
@@ -236,7 +218,6 @@ public class World implements Visitable {
 	@Override
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
-
 	}
 
 	public int getCurrentDay() {
@@ -248,5 +229,4 @@ public class World implements Visitable {
 		// TODO Auto-generated method stub
 		return deadPopulation;
 	}
-
 }

@@ -42,7 +42,6 @@ public class Radio implements Visitor {
 
 	public void getStatistics(World world){
 		if (currentDay>1){
-
 			worldPopulation=0;
 			deadCount=0;
 			infectedCount=0;
@@ -64,6 +63,5 @@ public class Radio implements Visitor {
 		world.infectedPopulation=infectedCount;
 		world.sickPopulation= sickCount;
 		world.healthyPopulation= healthyPopulation;
-
 	}
 }
