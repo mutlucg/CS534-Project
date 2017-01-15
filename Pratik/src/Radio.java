@@ -18,7 +18,6 @@ public class Radio implements Visitor {
 		this.sickCount = world.sickPopulation;
 		this.infectedCount = world.infectedPopulation;
 		this.healthyPopulation = world.healthyPopulation;
-
 		checkCountriesForInfection(world);
 		getStatistics(world);
 	}
@@ -34,11 +33,6 @@ public class Radio implements Visitor {
 		}
 		return nonInfectedCountries;
 	}
-
-	public int getCurrentDay(){
-		return currentDay;
-	}
-
 
 	public void getStatistics(World world){
 		if (currentDay>1){

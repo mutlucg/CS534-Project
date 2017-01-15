@@ -21,16 +21,11 @@ public class Display implements ActionListener{
 	private JButton continueButton;
 	JLabel totalPopulation;
 	JTextField nGrid;
-	int rateOfInfected;
-	int rateOfSuperPeople;
 	JTextField numberOfVaccinated;
-	int transportParameter;
 	JTextField totalPop;
 	JLabel dimension;
 	JLabel infectionRate;
-	JLabel rateOfSuperPeope;
 	JLabel numOfVaccinated;
-	JLabel transportParam;
 	private JPanel questionPanel;
 	private JTextField rateOfInfection;
 	private JLabel rateOfSuper;
@@ -54,61 +49,22 @@ public class Display implements ActionListener{
 	private String docRate;
 	private String numVac;
 	private String transPar;
-	boolean isStarted;
-
-	public int getPopulation() {
-		return population;
-	}
-	public void setPopulation(int population) {
-		this.population = population;
-	}
-	public int getN() {
-		return n;
-	}
-	public void setN(int n) {
-		this.n = n;
-	}
-	public int getInfectedPercent() {
-		return infectedPercent;
-	}
-	public void setInfectedPercent(int infectedPercent) {
-		this.infectedPercent = infectedPercent;
-	}
-	public int getSuperPercent() {
-		return superPercent;
-	}
-	public void setSuperPercent(int superPercent) {
-		this.superPercent = superPercent;
-	}
-	public int getDoctorPercent() {
-		return doctorPercent;
-	}
-	public void setDoctorPercent(int doctorPercent) {
-		this.doctorPercent = doctorPercent;
-	}
-	public int getVaccinatedNumber() {
-		return vaccinatedNumber;
-	}
-	public void setVaccinatedNumber(int vaccinatedNumber) {
-		this.vaccinatedNumber = vaccinatedNumber;
-	}
-	public int getTransportationParameter() {
-		return transportationParameter;
-	}
-	public void setTransportationParameter(int transportationParameter) {
-		this.transportationParameter = transportationParameter;
-	}
-
 
 	public Display(){
 		radio=new Radio();
 	}
 
-
 	public void getNumbersFromUser(){
 		createFrame();
 		organizeFrame();
+	}
 
+	public void createFrame(){
+		frame=new JFrame();
+		frame.setSize(1100, 800);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(1);
+		frame.setResizable(false);
 	}
 
 	private void organizeFrame() {
@@ -122,39 +78,6 @@ public class Display implements ActionListener{
 		frame.add(southPanel,BorderLayout.SOUTH);
 		frame.setSize(550, 400);
 
-	}
-
-	private void getValuesFromUser() {
-		pop =totalPop.getText();
-		nGr=nGrid.getText();
-		infRate=rateOfInfection.getText();
-		supRate= superRate.getText();
-		docRate= doctorRate.getText();
-		numVac = numberOfVaccinated.getText();
-		transPar = transParameter.getText();
-	}
-
-	private void initializeValues() {
-		try{
-			population = Integer.parseInt( String.valueOf(pop));
-			n=Integer.parseInt(nGr);
-			infectedPercent=Integer.parseInt(infRate);
-			superPercent = Integer.parseInt(supRate);
-			doctorPercent = Integer.parseInt(docRate);
-			vaccinatedNumber = Integer.parseInt(numVac);
-			transportationParameter= Integer.parseInt(transPar);
-		}catch(Exception e){
-			System.out.println("Not a number");
-
-		}
-
-	}
-
-	private void addButton() {
-		continueButton =new JButton("Continue");
-		continueButton.setPreferredSize(new Dimension(300,50));
-		continueButton.addActionListener(this);
-		southPanel.add(continueButton);
 	}
 
 	private void createFields() {
@@ -180,8 +103,8 @@ public class Display implements ActionListener{
 		rateOfTransportation = new JLabel (" Transportation Parameter");
 		transParameter = new JTextField();
 	}
+
 	private void addFields() {
-
 		questionPanel.add(totalPopulation);
 		questionPanel.add( totalPop);
 		questionPanel.add(dimension);
@@ -210,7 +133,44 @@ public class Display implements ActionListener{
 		questionPanel.add( numberOfVaccinated);
 		questionPanel.add(rateOfTransportation);
 		questionPanel.add( transParameter);
+	}
 
+	private void addButton() {
+		continueButton =new JButton("Continue");
+		continueButton.setPreferredSize(new Dimension(300,50));
+		continueButton.addActionListener(this);
+		southPanel.add(continueButton);
+	}
+
+	private void getValuesFromUser() {
+		pop =totalPop.getText();
+		nGr=nGrid.getText();
+		infRate=rateOfInfection.getText();
+		supRate= superRate.getText();
+		docRate= doctorRate.getText();
+		numVac = numberOfVaccinated.getText();
+		transPar = transParameter.getText();
+	}
+
+	private void initializeValues() {
+		try{
+			population = Integer.parseInt( String.valueOf(pop));
+			n=Integer.parseInt(nGr);
+			infectedPercent=Integer.parseInt(infRate);
+			superPercent = Integer.parseInt(supRate);
+			doctorPercent = Integer.parseInt(docRate);
+			vaccinatedNumber = Integer.parseInt(numVac);
+			transportationParameter= Integer.parseInt(transPar);
+		}catch(Exception e){
+			System.out.println("Not a number");
+		}
+	}
+
+	private void createNewWorld() {
+		world = new World(population,n,infectedPercent,superPercent,doctorPercent,
+				vaccinatedNumber,transportationParameter);
+		world.createWorld();
+		displayStatistics();
 	}
 
 	public void displayStatistics(){
@@ -261,12 +221,27 @@ public class Display implements ActionListener{
 		nextDay.addActionListener(this);
 	}
 
+	public void getInfoAboutWorld(){
+		radio.visit(world);
+		displayWorldInfo();
+	}
+
+	public void displayWorldInfo(){
+		dayLabel.setText("----------------DAY "+ radio.currentDay+"------------------------");
+		worldLabel.setText("<html>  WORLD STATISTICS "+
+				"<br> Total population:" + radio.worldPopulation +
+				"<br> Healthy population: "+radio.healthyPopulation +
+				"<br> Infected population: "+radio.infectedCount +
+				"<br>  Sick population: "+radio.sickCount+
+				"<br>  Dead population: "+radio.deadCount +"<html>.");
+		countryText.setText(collectCountryInfo());
+	}
+
 	private String collectCountryInfo() {
 		countryInfo="";
 		int a=1;
 		for (int i =0;i<world.countries.length;i++){
 			for (int j =0;j<world.countries.length;j++){
-
 				countryInfo= countryInfo +"\n"+"---- COUNTRY "+a +"-------\n"
 						+ " Total Population :"+ world.countries[i][j].population+ "\n"
 						+ "Healthy Population: " + world.countries[i][j].healthyPopulation+ "\n"
@@ -279,30 +254,6 @@ public class Display implements ActionListener{
 		return countryInfo;
 	}
 
-	public void getInfoAboutWorld(){
-		radio.visit(world);
-		displayWorldInfo();
-	}
-
-	public void createFrame(){
-		frame=new JFrame();
-		frame.setSize(1100, 800);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(1);
-		frame.setResizable(false);
-	}
-
-	public void displayWorldInfo(){
-		dayLabel.setText("----------------DAY "+ radio.currentDay+"------------------------");
-		worldLabel.setText("<html>  WORLD STATISTICS "+
-				"<br> Total population:" + radio.worldPopulation + 
-				"<br> Healthy population: "+radio.healthyPopulation +
-				"<br> Infected population: "+radio.infectedCount +
-				"<br>  Sick population: "+radio.sickCount+
-				"<br>  Dead population: "+radio.deadCount +"<html>."); 
-		countryText.setText(collectCountryInfo());
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == continueButton ){
@@ -313,17 +264,17 @@ public class Display implements ActionListener{
 			count++;
 			world.currentDay=world.currentDay+1;
 			getInfoAboutWorld();
+			for (int i = 0; i < world.people.size(); i++) {
+				 world.people.get(i).survive();
+			}
 		}else if (event.getSource()==nextDay && count %2 ==1 ){
 			count++;
 			world.currentDay=world.currentDay+1;
 			getInfoAboutWorld();
+			for (int i = 0; i < world.people.size(); i++) {
+				world.people.get(i).survive();
+			}
 		}
-	}
-	private void createNewWorld() {
-		world = new World(population,n,infectedPercent,superPercent,doctorPercent,
-				vaccinatedNumber,transportationParameter);
-		world.createWorld();
-		displayStatistics();
 	}
 }
 

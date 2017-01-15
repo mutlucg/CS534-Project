@@ -38,6 +38,13 @@ public class World implements Visitable {
 		setNeighbours();
 	}
 
+	public void createPeople() {
+		people = new ArrayList<>();
+		for (int i = 0; i < population; i++) {
+			people.add(new Person());
+		}
+	}
+
 	public void makePeopleSuper(){
 		for (int i=0;i<superPopulation;i++){
 			people.get(i).setSuper(true);
@@ -55,28 +62,6 @@ public class World implements Visitable {
 		}
 	}
 
-	private void setCitizens() {
-		int count = 0;
-		for (int i = 0; i < countries.length; i++) {
-			for (int j = 0; j < countries.length; j++) {
-				for (int k = 0; k < countries[i][j].population; k++) {
-					countries[i][j].person.add(people.get(count + k));
-					people.get(count + k).setLocation(countries[i][j]);
-					if(k == countries[i][j].population-1) {
-						count += countries[i][j].population;
-					}
-				}
-			}
-		}
-	}
-
-	public void createPeople() {
-		people = new ArrayList<>();
-		for (int i = 0; i < population; i++) {
-			people.add(new Person());
-		}
-	}
-
 	public void createCountries() {
 		for (int i = 0; i < countries.length; i++) {
 			for (int j = 0; j < countries.length; j++) {
@@ -89,7 +74,7 @@ public class World implements Visitable {
 	public void setCountryPopulations(int pop, int num) {
 		int numOfCountries=num;
 		int tempPop=pop;
-		int random=0;
+		int random;
 		Random r = new Random();
 		while (tempPop>0){
 			for(int i=0;i<countries.length;i++){
@@ -111,6 +96,21 @@ public class World implements Visitable {
 				}
 			}
 			numOfCountries=numberOfCountries;
+		}
+	}
+
+	private void setCitizens() {
+		int count = 0;
+		for (int i = 0; i < countries.length; i++) {
+			for (int j = 0; j < countries.length; j++) {
+				for (int k = 0; k < countries[i][j].population; k++) {
+					countries[i][j].person.add(people.get(count + k));
+					people.get(count + k).setLocation(countries[i][j]);
+					if(k == countries[i][j].population-1) {
+						count += countries[i][j].population;
+					}
+				}
+			}
 		}
 	}
 
@@ -218,15 +218,5 @@ public class World implements Visitable {
 	@Override
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
-	}
-
-	public int getCurrentDay() {
-		// TODO Auto-generated method stub
-		return currentDay;
-	}
-
-	public int getDeadPopulation() {
-		// TODO Auto-generated method stub
-		return deadPopulation;
 	}
 }
