@@ -7,16 +7,16 @@ public class Country  {
 	Country northN;
 	Country southN;
 	ArrayList<Country> neighbours = new ArrayList<>();
-	int population;
-	int healthyPopulation;
-	int sickPopulation;
-	int deadPopulation;
-	int infectedPopulation;
+	private int population;
+	private int healthyPopulation;
+	private int sickPopulation;
+	private int deadPopulation;
+	private int infectedPopulation;
 	ArrayList<Person> person = new ArrayList<>();
 
 	boolean isInfected(int currentDay) {
 		checkInfection(currentDay);
-		return (deadPopulation > 0 || sickPopulation > 0) ;
+		return (getDeadPopulation() > 0 || sickPopulation > 0) ;
 	}
 
 	public void checkInfection(int currentDay){
@@ -27,8 +27,8 @@ public class Country  {
 	public void checkInfectedPeople() {
 
 		for (int i =0;i<person.size();i++){
-			if (person.get(i).isInfected){
-				person.get(i).infectionDay=0;
+			if (person.get(i).isInfected()){
+				person.get(i).setInfectionDay(0);
 				infectedPopulation++;
 				healthyPopulation--;
 			}
@@ -54,7 +54,7 @@ public class Country  {
 		this.infectedPopulation=infectedPopulation;
 	}
 
-	public int getInfectedPopulation() {
+	int getInfectedPopulation() {
 		return infectedPopulation;
 	}
 
@@ -75,11 +75,19 @@ public class Country  {
 	}
 
 	public int getdeadPopulation() {
-		return deadPopulation;
+		return getDeadPopulation();
 	}
 
 	public void setdeadPopulation(int deadPopulation) {
-		this.deadPopulation=deadPopulation;
+		this.setDeadPopulation(deadPopulation);
+	}
+
+	public int getDeadPopulation() {
+		return deadPopulation;
+	}
+
+	public void setDeadPopulation(int deadPopulation) {
+		this.deadPopulation = deadPopulation;
 	}
 
 

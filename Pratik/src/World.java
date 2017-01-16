@@ -2,9 +2,9 @@
 import java.util.*;
 
 public class World implements Visitable {
-	public int days = 1;
-	static public Country[][] countries;
-	static int transportationParameter;
+
+	Country[][] countries;
+	int transportationParameter;
 	int numberOfCountries;
 	int population;
 	int healthyPopulation;
@@ -14,7 +14,7 @@ public class World implements Visitable {
 	int currentDay;
 	int superPopulation;
 	ArrayList<Person> people;
-	private int numberOfDoctors;
+	int numberOfDoctors;
 
 	public World(int P, int N, int X,int S,int D,int V, int A) {
 		currentDay=1;
@@ -79,17 +79,17 @@ public class World implements Visitable {
 		while (tempPop>0){
 			for(int i=0;i<countries.length;i++){
 				for(int j=0;j<countries.length;j++){
-					if(countries[i][j].population==0){
+					if(countries[i][j].getPopulation()==0){
 						random=  r.nextInt(tempPop/numOfCountries)+1;
-						countries[i][j].population = random;
-						countries[i][j].healthyPopulation = countries[i][j].population ;
+						countries[i][j].setPopulation (random);
+						countries[i][j].setHealthyPopulation( countries[i][j].getPopulation()) ;
 						tempPop= tempPop-random;
 						numOfCountries--;
 					}else if (tempPop>0) {
 						random =r.nextInt(1)+1;
 						if (tempPop-random>=0){
-							countries[i][j].population = countries[i][j].population + random;
-							countries[i][j].healthyPopulation =countries[i][j].population ;
+							countries[i][j].setPopulation( countries[i][j].getPopulation() + random);
+							countries[i][j].setHealthyPopulation(countries[i][j].getPopulation ());
 							tempPop= tempPop-random;
 						}
 					}
@@ -103,11 +103,11 @@ public class World implements Visitable {
 		int count = 0;
 		for (int i = 0; i < countries.length; i++) {
 			for (int j = 0; j < countries.length; j++) {
-				for (int k = 0; k < countries[i][j].population; k++) {
+				for (int k = 0; k < countries[i][j].getPopulation(); k++) {
 					countries[i][j].person.add(people.get(count + k));
 					people.get(count + k).setLocation(countries[i][j]);
-					if(k == countries[i][j].population-1) {
-						count += countries[i][j].population;
+					if(k == countries[i][j].getPopulation()-1) {
+						count += countries[i][j].getPopulation();
 					}
 				}
 			}

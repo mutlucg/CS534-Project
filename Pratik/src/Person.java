@@ -6,16 +6,16 @@ public class Person {
 
 	private Country location;
 	private Radio radio;
-	int infectionDay;
-	boolean isInfected;
-	 boolean isSick;
-	 boolean isDead;
-	 boolean isImmune;
-	 boolean looksInfectious;
-	 int currentDay;
-	 int transportation;
-	 int travelDay;
-	 boolean isSuper;
+	private int infectionDay;
+	private boolean isInfected;
+	private  boolean isSick;
+	private boolean isDead;
+	private boolean isImmune;
+	private boolean looksInfectious;
+	private int currentDay;
+	private int transportation;
+	private int travelDay;
+	private boolean isSuper;
 
 	public Person() {
 		radio = new Radio();
@@ -125,12 +125,12 @@ public class Person {
 		if (isInfected && currentDay-infectionDay==6){
 			isSick=true;
 			looksInfectious= true;
-		location.setSickPopulation(location.getSickPopulation()+1);
+			location.setSickPopulation(location.getSickPopulation()+1);
 		}
 	}
 
 	public void die() {
-	if(isSick && currentDay-infectionDay==14){
+		if(isSick && currentDay-infectionDay==14){
 			Random r = new Random();
 			int infect = r.nextInt(100);
 			if (infect < 25){
@@ -160,20 +160,30 @@ public class Person {
 		}
 	}
 
+	public boolean isInfected() {
+		return isInfected;
+	}
+
 	public void setInfectionDay(int infectionDay) {
-		this.infectionDay = infectionDay;
+		this.infectionDay=infectionDay;	
 	}
-	public void setInfected(boolean isInfected) {
-		this.isInfected = isInfected;
+
+	public void setSuper(boolean isSuper) {
+		this.isSuper=isSuper;		
 	}
+
 	public boolean isSuper() {
 		return isSuper;
 	}
-	public void setSuper(boolean isSuper) {
-		this.isSuper = isSuper;
+
+	public void setInfected(boolean isInfected) {
+		this.isInfected=isInfected;		
 	}
-	public void setLocation(Country country) {
-		location = country;
+
+	public void setLocation(Country location) {
+		this.location=location;
+		
 	}
+
 
 }

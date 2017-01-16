@@ -19,13 +19,13 @@ public class Display implements ActionListener{
 	private JPanel buttonPanel;
 	private TextArea countryText;
 	private JButton continueButton;
-	JLabel totalPopulation;
-	JTextField nGrid;
-	JTextField numberOfVaccinated;
-	JTextField totalPop;
-	JLabel dimension;
-	JLabel infectionRate;
-	JLabel numOfVaccinated;
+	private JLabel totalPopulation;
+	private JTextField nGrid;
+	private JTextField numberOfVaccinated;
+	private JTextField totalPop;
+	private JLabel dimension;
+	private JLabel infectionRate;
+	private JLabel numOfVaccinated;
 	private JPanel questionPanel;
 	private JTextField rateOfInfection;
 	private JLabel rateOfSuper;
@@ -243,11 +243,11 @@ public class Display implements ActionListener{
 		for (int i =0;i<world.countries.length;i++){
 			for (int j =0;j<world.countries.length;j++){
 				countryInfo= countryInfo +"\n"+"---- COUNTRY "+a +"-------\n"
-						+ " Total Population :"+ world.countries[i][j].population+ "\n"
-						+ "Healthy Population: " + world.countries[i][j].healthyPopulation+ "\n"
-						+ " Infected Population "+ world.countries[i][j].infectedPopulation+ "\n"
-						+ " Sick Population "+ world.countries[i][j].sickPopulation+ "\n"
-						+ " Dead Population "+ world.countries[i][j].deadPopulation+ "\n";
+						+ " Total Population :"+ world.countries[i][j].getPopulation()+ "\n"
+						+ "Healthy Population: " + world.countries[i][j].getHealthyPopulation()+ "\n"
+						+ " Infected Population "+ world.countries[i][j].getInfectedPopulation()+ "\n"
+						+ " Sick Population "+ world.countries[i][j].getSickPopulation()+ "\n"
+						+ " Dead Population "+ world.countries[i][j].getDeadPopulation()+ "\n";
 				a++;
 			}
 		}

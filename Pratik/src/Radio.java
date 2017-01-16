@@ -44,11 +44,11 @@ public class Radio implements Visitor {
 
 			for (int i = 0; i < world.countries.length; i++) {
 				for (int j = 0; j < world.countries.length; j++) {
-					worldPopulation=worldPopulation + world.countries [i][j].population;
-					deadCount = deadCount + world.countries [i][j].deadPopulation;
-					infectedCount= infectedCount +world.countries [i][j].infectedPopulation;
-					sickCount = sickCount+ world.countries [i][j].sickPopulation;
-					healthyPopulation = healthyPopulation + world.countries[i][j].healthyPopulation;
+					worldPopulation=worldPopulation + world.countries [i][j].getPopulation();
+					deadCount = deadCount + world.countries [i][j].getDeadPopulation();
+					infectedCount= infectedCount +world.countries [i][j].getInfectedPopulation();
+					sickCount = sickCount+ world.countries [i][j].getSickPopulation();
+					healthyPopulation = healthyPopulation + world.countries[i][j].getHealthyPopulation();
 				}
 			}
 		}
